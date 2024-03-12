@@ -362,18 +362,37 @@ function keluhanController($scope, keluhanServices, pesan) {
         }
     }
 
+    $scope.ubah = (param)=>{
+        $scope.model = angular.copy(param);
+        $("#ubah").modal('show');
+    }
+
+    $scope.tutup = ()=>{
+        $scope.model = {};
+        $("#ubah").modal('hide');
+    }
+    
     $scope.save = () => {
-        pesan.dialog('Yakin ingin menyimpan hasil?', "Ya", "Tidak", "info").then(x => {
+        pesan.dialog('Yakin ingin mengupdate status?', "Ya", "Tidak", "info").then(x => {
             $.LoadingOverlay('show');
-            $scope.model.kerusakan = $scope.hasil.kerusakan;
-            $scope.model.kerusakan_id = $scope.hasil.id;
-            keluhanServices.post($scope.model).then(res => {
-                $scope.model = {};
-                $scope.gejala = {};
-                $scope.hasil = undefined;
-                $.LoadingOverlay('hide');
-                $("#mulai").modal('hide');
-            })
+            if($scope.model.id){
+                keluhanServices.put($scope.model).then(res=>{
+                    pesan.Success('Berhasil update status');
+                    $scope.model = {};
+                    $("#ubah").modal('hide');
+                    $.LoadingOverlay('hide');
+                })
+            }else{
+                $scope.model.kerusakan = $scope.hasil.kerusakan;
+                $scope.model.kerusakan_id = $scope.hasil.id;
+                keluhanServices.post($scope.model).then(res => {
+                    $scope.model = {};
+                    $scope.gejala = {};
+                    $scope.hasil = undefined;
+                    $.LoadingOverlay('hide');
+                    $("#mulai").modal('hide');
+                })
+            }
         })
     }
 

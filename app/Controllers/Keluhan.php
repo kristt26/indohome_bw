@@ -79,13 +79,19 @@ class Keluhan extends BaseController
             return $this->fail($th->getMessage());
         }
     }
-
+    
     public function put(): object
     {
-        return view('layout');
+        $param = $this->request->getJSON();
+        if ($this->keluhan->update($param->id, ['status'=>$param->status])) {
+            return $this->respondUpdated(true);
+        }else{
+            return $this->fail(false);
+        }
     }
-    public function delete(): object
+    public function delete($id): object
     {
-        return view('layout');
+        $this->keluhan->delete($id);
+        return $this->respondDeleted(true);
     }
 }

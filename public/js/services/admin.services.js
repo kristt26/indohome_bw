@@ -401,12 +401,9 @@ function keluhanServices($http, $q, helperServices, AuthService, pesan) {
             headers: AuthService.getHeader()
         }).then(
             (res) => {
-                var data = service.data.kerusakan.pengetahuan.find(x => x.id == param.id);
+                var data = service.data.keluhan.find(x => x.id == param.id);
                 if (data) {
-                    data.kode_gejala = param.kode_gejala;
-                    data.gejala = param.gejala;
-                    data.ya = param.ya;
-                    data.tidak = param.tidak;
+                    data.status = param.status;
                 }
                 def.resolve(res.data);
             },
@@ -425,8 +422,8 @@ function keluhanServices($http, $q, helperServices, AuthService, pesan) {
             headers: AuthService.getHeader()
         }).then(
             (res) => {
-                var index = service.data.kerusakan.pengetahuan.indexOf(param);
-                service.data.kerusakan.pengetahuan.splice(index, 1);
+                var index = service.data.keluhan.indexOf(param);
+                service.data.keluhan.splice(index, 1);
                 def.resolve(res.data);
             },
             (err) => {
