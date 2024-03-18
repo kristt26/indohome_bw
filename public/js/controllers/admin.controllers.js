@@ -404,4 +404,9 @@ function keluhanController($scope, keluhanServices, pesan) {
             })
         })
     }
+
+    $scope.tampilFoto = (param)=>{
+        $scope.foto = param
+        $("#foto").modal('show');
+    }
 }

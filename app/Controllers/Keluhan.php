@@ -51,6 +51,7 @@ class Keluhan extends BaseController
 
     public function post(): object
     {
+        $lib = new \App\Libraries\Decode();
         $data = $this->request->getJSON();
         try {
             $this->conn->transBegin();
@@ -68,6 +69,7 @@ class Keluhan extends BaseController
                 'kerusakan_id'=>$data->kerusakan_id,
                 'nomor'=>random_int(10000, 99999),
                 'status'=>'Diajukan',
+                'foto' => $lib->decodebase64($data->berkas->base64)
             ];
             $this->keluhan->insert($keluhan);
             if($this->conn->transStatus()){

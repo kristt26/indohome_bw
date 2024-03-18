@@ -27,6 +27,7 @@
                                     <th>Nama Pelapor</th>
                                     <th>Kontak</th>
                                     <th>Keluhan Kerusakan</th>
+                                    <th>Foto</th>
                                     <th>Status</th>
                                     <th width="10%"><i class="fas fa-cogs"></i></th>
                                 </tr>
@@ -39,6 +40,7 @@
                                     <td>{{item.nama}}</td>
                                     <td>{{item.kontak}}</td>
                                     <td>{{item.kerusakan}}</td>
+                                    <td><a href="#" ng-click="tampilFoto(item)" ng-show="item.foto">Foto Fisik Modem</a></td>
                                     <td>{{item.status}}</td>
                                     <td>
                                         <button type="submit" class="btn btn-danger pmd-ripple-effect btn-sm" ng-click="delete(item)"><i class="fas fa-trash-alt fa-sm fa-fw"></i></button>
@@ -121,6 +123,14 @@
                         <button type="submit" class="btn btn-primary btn-sm">Update</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="foto" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <img ng-src="<?= base_url()?>/assets/foto/{{foto.foto}}" alt="">
             </div>
         </div>
     </div>

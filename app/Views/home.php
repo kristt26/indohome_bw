@@ -71,6 +71,12 @@
                                 <h3 class="modal-title text-white">Silahkan jawab pertanyaan berikut!</h3>
                                 <div ng-show="status == 'keluhan' && !hasil" class="alert alert-primary" role="alert" style="font-size: 20px;">Apakah Terjadi {{pertanyaan.gejala}}</div>
                                 <div ng-show="status == 'keluhan' && hasil" class="alert alert-warning" role="alert" style="font-size: 20px;">Permasalahan: <br>{{hasil.kerusakan}}</div>
+                                <h3 ng-show="status == 'keluhan' && hasil" class="modal-title text-white">Upload foto fisik perangkat (Modem)</h3>
+                                <div ng-show="status == 'keluhan' && hasil" class="custom-file">
+                                    <input type="file" class="custom-file-input" id="customFile" accept="image/*" ng-change="tampilGambar(model.berkas)" ng-model="model.berkas" base-sixty-four-input>
+                                    <label class="custom-file-label" for="customFile">{{model.berkas ? model.berkas.filename : model.gambar ? model.gambar :  'Pilih Foto Modem'}}</label>
+                                </div>
+                                <img ng-show="status == 'keluhan' && hasil && model.berkas" class="img-fluid" style="border: 5px solid #555; margin-bottom: 12px" data-ng-src="data:{{model.berkas.filetype}};base64,{{model.berkas.base64}}" width="30%">
                                 <div>
                                     <span style="width:48%; text-align:left;  display: inline-block;"></span>
                                     <button ng-if="status == 'keluhan' && !hasil" type="button" class="btn btn-info" ng-click="check('Ya')">Ya</button>
@@ -102,9 +108,10 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="<?= base_url() ?>/libs/angular-base64-upload/dist/angular-base64-upload.min.js"></script>
 
     <script>
-        angular.module('apps', ['message.service', 'helper.service', 'admin.service', 'auth.service'])
+        angular.module('apps', ['message.service', 'helper.service', 'admin.service', 'auth.service', 'naif.base64'])
             .controller("registerController", registerController);
 
         function registerController($scope, $http, pesan, helperServices, keluhanServices) {
@@ -230,6 +237,10 @@
                         $.LoadingOverlay('hide');
                     })
                 })
+            }
+
+            $scope.tampilGambar = (param) => {
+                console.log(param);
             }
         }
     </script>

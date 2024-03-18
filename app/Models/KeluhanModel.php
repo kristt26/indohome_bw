@@ -12,5 +12,5 @@ class KeluhanModel extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['kerusakan_id', 'nomor', 'tanggal', 'status', 'pelanggan_id'];
+    protected $allowedFields    = ['kerusakan_id', 'nomor', 'tanggal', 'status', 'pelanggan_id', 'foto'];
 }
